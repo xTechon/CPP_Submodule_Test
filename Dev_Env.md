@@ -15,6 +15,10 @@ Dependencies:
 Install LLVM: https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.6/LLVM-16.0.6-win64.exe
 Install Ninja, use Winget: `Winget install Ninja-build.Ninja`
 
+Clone Repo
+
+Activate VCPKG
+
 VS Code settings:
 set CMake to use [Clang... ...pc-windows-msvc] and it should lead to the LLVM install path
 in settings.json, replace <path to repo> with the correct information and makes sure the forward/backslashes match for OS
