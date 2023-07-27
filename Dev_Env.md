@@ -17,3 +17,4 @@ Install Ninja, use Winget: `Winget install Ninja-build.Ninja`
 
 VS Code settings:
 set CMake to use [Clang... ...pc-windows-msvc] and it should lead to the LLVM install path
+in settings.json, replace <path to repo> with the correct information and makes sure the forward/backslashes match for OS

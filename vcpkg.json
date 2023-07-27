@@ -1,6 +1,10 @@
 {
     "dependencies": [
-      "fmt"
+      "fmt",
+      "glfw3",
+      "freetype",
+      {"name": "imgui", "features": ["freetype", "glfw-binding", "opengl3-binding"]},
+      "implot"
     ]
     
 }
