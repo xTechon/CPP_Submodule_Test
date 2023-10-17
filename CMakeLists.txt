@@ -7,7 +7,6 @@ project(${PROJECT} LANGUAGES CXX)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
 
-add_subdirectory(lib\\ImGuiFileDialog)
 
 find_package(fmt REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -23,8 +22,16 @@ set(LIBRARIES
     ${OPENGL_LIBRARIES}
     imgui::imgui
     implot::implot
-    ImGuiFileDialog
 )
 
-add_executable(${PROJECT} src/helloWorld.cpp)
+set(FileDialog
+    lib/ImGuiFileDialog/ImGuiFileDialog.h
+    lib/ImGuiFileDialog/ImGuiFileDialog.cpp
+)
+
+set(SOURCE
+    src/helloWorld.cpp
+)
+
+add_executable(${PROJECT} ${FileDialog} ${SOURCE})
 target_link_libraries(${PROJECT} PRIVATE ${LIBRARIES})
