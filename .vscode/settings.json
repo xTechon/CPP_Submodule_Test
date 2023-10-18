@@ -1,5 +1,5 @@
 {
     "cmake.configureArgs": [
-        "-DCMAKE_TOOLCHAIN_FILE=C:\\Users\\dhiromoto\\OneDrive - CSI Companies\\Repositories\\CPP_Submodule_Test\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
+        "-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/vcpkg/scripts/buildsystems/vcpkg.cmake"
     ]
 }

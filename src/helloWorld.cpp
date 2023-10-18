@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <Windows.h>
+#ifdef _WIN32
+  #include <windows.h> //windows only header required
+#endif
 
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
@@ -14,10 +16,14 @@
 #include <implot.h>
 
 #include <fmt/format.h>
+#include "../lib/ImGuiFileDialog/ImGuiFileDialog.h"
 
 static void glfw_error_callback(int error, const char *description) {
   fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
+
+// Prototype funct for testing file picker compilation
+std::vector<std::string>* drawGUI(std::vector<std::string>* fileP);
 
 int main(int, char **) {
   // Setup window
@@ -56,6 +62,10 @@ int main(int, char **) {
   bool show_another_window = false;
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+  // Test file picker
+  bool filePick = false;
+  std::vector<std::string>* fileInfo = nullptr;
+
   ImGuiWindowFlags flags = ImGuiWindowFlags_AlwaysAutoResize;
 
   while (!glfwWindowShouldClose(window)) {
@@ -72,8 +82,8 @@ int main(int, char **) {
       ImGui::Text(
           "Select a properly formatted txt or csv file using the button below");
       // checkbox to display a loaded map
-      ImGui::Checkbox("Display Loaded Map", &show_another_window);
-
+      filePick = ImGui::Checkbox("Display Loaded Map", &show_another_window);
+      fileInfo = drawGUI(fileInfo);
       ImGui::End();
     }
 
@@ -98,4 +108,45 @@ int main(int, char **) {
   glfwTerminate();
 
   return 0;
+}
+
+
+std::vector<std::string>* drawGUI(std::vector<std::string>* fileP) {
+  // open Dialog Simple std::cout << fmt::format("DrawGUI");
+  if (ImGui::Button("Open File Dialog")) {
+    ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDlgKey", "Choose File", ".csv,.txt", ".");
+  }
+  static std::vector<std::string> fileInfo;
+  static std::string filePathName;
+  static std::string filePath;
+  static std::string fileName;
+  // display
+  if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey")) {
+    // action if OK
+    if (ImGuiFileDialog::Instance()->IsOk()) {
+      filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+      filePath     = ImGuiFileDialog::Instance()->GetCurrentPath();
+      fileName     = filePathName.substr(filePath.length() + 1);
+
+      fileInfo.push_back(filePathName);
+      fileInfo.push_back(filePath);
+      fileInfo.push_back(fileName);
+
+      // const char *fileP = filePathName.c_str();
+      //  action
+      //  ImGui::Text("%s", fileP);
+#ifndef NDEBUG
+      std::cout << fmt::format("{}", fileInfo[2]) << std::endl;
+#endif
+      ImGuiFileDialog::Instance()->Close();
+      if (ImGui::GetIO().KeyAlt) printf(""); // Set a debugger breakpoint here!
+      return &fileInfo;
+    }
+
+    // close
+    ImGuiFileDialog::Instance()->Close();
+    return nullptr;
+  }
+  if (fileP != nullptr) return fileP;
+  return nullptr;
 }
