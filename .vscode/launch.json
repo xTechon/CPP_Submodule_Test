@@ -9,7 +9,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "${workspaceFolder}/bin/helloWorld.exe",
+            "program": "${workspaceFolder}/bin/HelloWorld",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

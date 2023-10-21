@@ -22,9 +22,9 @@ Activate VCPKG from project root:
 <br>`cmake -B [build directory] -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake`
 
 VS Code settings:
-<br>Set CMake to use [Clang... ...pc-windows-msvc] and it should lead to the LLVM install path
-<br>In Linux, Cmake should be set to use the [Clang... ...pc-linux-gnu] kit
-<br>in settings.json, replace <path to repo> with the correct information and makes sure the forward/backslashes match for OS
+- Set CMake to use [Clang... ...pc-windows-msvc] and it should lead to the LLVM install path
+- In Linux, Cmake should be set to use the [Clang... ...pc-linux-gnu] kit
+- in settings.json, replace <path to repo> with the correct information and makes sure the forward/backslashes match for OS
 
 Make build folder in project root, run in project root:
-<br>`cmake --build build`
+- `cmake --build build`
